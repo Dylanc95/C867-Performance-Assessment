@@ -68,7 +68,7 @@ void Roster::remove(string studentID) {
 		if (classRosterArray[i] == nullptr) {
 			continue;
 		};
-		else if (classRosterArray[i]->GetStudentID() == studentID) {
+		else if (classRosterArray[i]->getStudentID() == studentID) {
 			classRosterArray[i] = nullptr;
 			wasStudentRemoved = true;
 		};
@@ -109,8 +109,8 @@ void Roster::AverageDaysInProgram(string studentID) {
 		if (classRosterArray[i] == nullptr) {
 			continue;
 		}
-		else if (classRosterArray[i]->GetStudentID() == studentID) {
-			int* courseArray = classRosterArray[i]->GetNumDaysArray();
+		else if (classRosterArray[i]->getStudentID() == studentID) {
+			int* courseArray = classRosterArray[i]->getDaysPerCourseArray();
 			int totalDays = 0;
 			int arrayLength = 3;
 
