@@ -5,85 +5,80 @@
 
 //D1-Create student class
 
-student::student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram degreeProgram) {
-	studentID = studentID;
-	firstName = firstName;
-	lastName = lastName;
-	emailAddress = emailAddress;
-	studentAge = studentAge;
-	numDaysInProgramArray[0] = days1;
-	numDaysInProgramArray[1] = days2;
-	numDaysInProgramArray[2] = days3;
-	degreeProgram = degreeProgram;
-};
-
-//Student destructor
-student::~student() {
-	cout << "Student destructor called" << endl;
+Student::Student(string sID, string fName, string lName, string email, int sAge, int courseTime1, int courseTime2, int courseTime3, DegreeProgram degreeProg) {
+	studentID = sID;
+	firstName = fName;
+	lastName = lName;
+	emailAddress = email;
+	age = sAge;
+	daysPerCourseArray[0] = courseTime1;
+	daysPerCourseArray[1] = courseTime2;
+	daysPerCourseArray[2] = courseTime3;
+	degreeProgram = degreeProg;
 };
 
 //D2b-mutators
-void student::SetStudentID(string studentID) {
-	this->studentID = studentID;
+void Student::setStudentID(std::string newStudentID) {
+	studentID = newStudentID;
 };
 
-void student::SetFirstName(string firstName) {
-	this->firstName = firstName;
+void Student::setFirstName(std::string newFirstName) {
+	firstName = newFirstName;
 };
 
-void student::SetLastName(string lastName) {
-	this->lastName = lastName;
+void Student::setLastName(std::string newLastName) {
+	lastName = newLastName;
 };
 
-void student::SetEmailAddress(string emailAddress) {
-	this->emailAddress = emailAddress;
+void Student::setEmailAddress(std::string newEmailAddress) {
+	emailAddress = newEmailAddress;
 };
 
-void student::SetAge(int studentAge) {
-	this->studentAge = studentAge;
+void Student::setAge(int newAge) {
+	age = newAge;
 };
 
-void student::SetNumDaysArray(int days1, int days2, int days3) {
-	numDaysInProgramArray[0] = days1;
-	numDaysInProgramArray[1] = days2;
-	numDaysInProgramArray[2] = days3;
+void Student::setDaysPerCourseArray(int courseTime1, int courseTime2, int courseTime3) {
+	daysPerCourseArray[0] = courseTime1;
+	daysPerCourseArray[1] = courseTime2;
+	daysPerCourseArray[2] = courseTime3;
 };
 
-void student::SetDegreeProgram(DegreeProgram degreeProgram) {
+void Student::setDegreeProgram(DegreeProgram newDegreeProgram) {
 
 };
 
 //D2a-accessors
-string student::GetStudentID() const {
+string Student::getStudentID() {
 	return studentID;
-}
+};
 
-string student::GetFirstName() const {
+string Student::getFirstName() {
 	return firstName;
-}
+};
 
-string student::GetLastName() const {
+string Student::getLastName() {
 	return lastName;
-}
+};
 
-string student::GetEmailAddress() const {
+string Student::getEmailAddress() {
 	return emailAddress;
-}
+};
 
-int student::GetAge() const {
-	return studentAge;
-}
+int Student::getAge() {
+	return age;
+};
 
-int *student::GetNumDaysArray() const {
-	return numDaysInProgramArray; 
-}
+int* Student::getDaysPerCourseArray() {
+	return daysPerCourseArray;
+};
 
-DegreeProgram student::GetDegreeProgram() const {
-	return degreeProgram; 
+DegreeProgram Student::getDegreeProgram() {
+	return degreeProgram;
 }
 
 //D2e print function
-void student::PrintAll() const {
+void student::print() {
 	cout <<
 		"Student ID: " << studentID <<
 		"\tFirst Name: " << firstName <<

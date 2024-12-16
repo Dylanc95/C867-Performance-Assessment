@@ -6,35 +6,36 @@
 using namespace std;
 
 //D1-Create the class Student  in the files student.h and student.cpp
-class student {
+class Student {
 	private:
 		string studentID;
 		string firstName;
 		string lastName;
 		string emailAddress;
-		int studentAge;
-		int numDaysInProgramArray[3];
+		int age;
+		int daysPerCourseArray[3];
 		DegreeProgram degreeProgram;
 	public:
 		//D2d: constructor w/ input parameters
-		student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram type);
+		Student(string sID, string fName, string lName, string email, int sAge, int courseTime1, int courseTime2, int courseTime3, DegreeProgram degreeProg);
 		//D2a-Accessors for each variable from part D1
-		void	SetStudentID(string studentID);
-		void	SetFirstName(string firstName);
-		void	SetLastName(string lastName);
-		void	SetEmailAddress(string emailAddress);
-		void	SetAge(int studentAge);
-		void	SetNumDaysArray(int days1, int days2, int days3);
-		void	SetDegreeProgram(DegreeProgram degreeProgram);
+		void setStudentID(string newStudentID);
+		void setFirstName(string newFirstName);
+		void setLastName(string newLastName);
+		void setEmailAddress(string newEmailAddress);
+		void setAge(int newAge);
+		void setDaysPerCourseArray(int courseTime1, int courseTime2, int courseTime3);
+		void setDegreeProgram(DegreeProgram newDegreeProgram);
 		//D2b-Mutators for each variable from part D1
-		string	GetStudentID() const;
-		string	GetFirstName() const;
-		string	GetLastName() const;
-		string	GetEmailAddress() const;
-		int		GetAge() const;
-		int*	GetNumDaysArray() const;
-		DegreeProgram	GetDegreeProgram() const;
-		void	PrintAll() const; //D2e print student data
+		string getStudentID();
+		string getFirstName();
+		string getLastName();
+		string getEmailAddress();
+		int getAge();
+		int* getDaysPerCourseArray();
+		DegreeProgram getDegreeProgram();
+		//Print student information
+		void print();
 };
 
 #endif

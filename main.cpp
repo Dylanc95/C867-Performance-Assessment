@@ -18,7 +18,7 @@ int main() {
 	classRoster->printInvalidEmails();
 
 	for (int i = 0; i < 5; ++i) {
-		classRoster->AverageDaysInProgram(classRoster->classRosterArray[i]->GetStudentID());
+		classRoster->AverageDaysInProgram(classRoster->classRosterArray[i]->getStudentID());
 	};
 
 	classRoster->printByDegreeProgram(DegreeProgram::SOFTWARE);
