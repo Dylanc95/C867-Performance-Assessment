@@ -20,6 +20,7 @@ Roster::~Roster() {
 		delete classRosterArray[i];
 		classRosterArray[i] = nullptr;
 	};
+	cout << "Roster destructor called" << endl;
 };
 
 void Roster::parse() {
@@ -68,25 +69,21 @@ void Roster::remove(string studentID) {
 		if (classRosterArray[i] == nullptr) {
 			continue;
 		};
-		else if (classRosterArray[i]->getStudentID() == studentID) {
+		if (classRosterArray[i]->getStudentID() == studentID) {
 			classRosterArray[i] = nullptr;
 			wasStudentRemoved = true;
 		};
 	};
 
-	if (wasStudentRemoved) {
-		cout << "Student was removed." << endl;
-	};
-	else {
-		cout << "Student ID not found." << endl;
-	};
+	if (wasStudentRemoved) cout << "Student was removed." << endl;
+	else cout << "Student ID not found." << endl;
 }
 
 void Roster::printAll() {
 	cout << endl;
 	for (int s = 0; s < rosterSize; s++) {
 		if (classRosterArray[s] != nullptr) {
-			classRosterArray[s].print();
+			classRosterArray[s]->print();
 		}
 	}
 }
@@ -96,7 +93,6 @@ void Roster::printInvalidEmails() {
 
 		if (classRosterArray[i] != nullptr) {
 			string email = classRosterArray[i]->getEmailAddress();
-
 			if ((email.find(" ") != string::npos) || (email.find(".") == string::npos) || (email.find("@") == string::npos)) {
 				cout << "INVALID EMAIL: " << email << endl;
 			}
@@ -108,22 +104,22 @@ void Roster::AverageDaysInProgram(string studentID) {
 	for (int i = 0; i < rosterSize; i++) {
 		if (classRosterArray[i] == nullptr) {
 			continue;
-		}
-		else if (classRosterArray[i]->getStudentID() == studentID) {
+		};
+		if (classRosterArray[i]->getStudentID() == studentID) {
 			int* courseArray = classRosterArray[i]->getDaysPerCourseArray();
 			int totalDays = 0;
 			int arrayLength = 3;
 
 			for (int i = 0; i < arrayLength; i++) {
 				totalDays = totalDays + courseArray[i];
-			}
+			};
 
-			cout << "Average days per course: " << totalDays / arrayLength << endl;
+			cout << "Average days per course: Student " << studentID << ": " << totalDays / arrayLength << endl;
 		}
 	}
 }
 
-void Roster::printByDegreeProgram(DegreeProgram degree) {
+void Roster::printByDegreeProgram(DegreeProgram degreeProgram) {
 	for (int i = 0; i < rosterSize; i++) {
 		if (classRosterArray[i] != nullptr) {
 			if (classRosterArray[i]->getDegreeProgram() == degreeProgram) {
@@ -135,24 +131,24 @@ void Roster::printByDegreeProgram(DegreeProgram degree) {
 
 DegreeProgram Roster::castToDegreeProgram(string degreeString) {
 	if (degreeString == "SECURITY") {
-		return SECURITY;
+		return DegreeProgram::SECURITY;
 	}
 	else if (degreeString == "NETWORK") {
-		return NETWORK;
+		return DegreeProgram::NETWORK;
 	}
 	else if (degreeString == "SOFTWARE") {
-		return SOFTWARE;
+		return DegreeProgram::SOFTWARE;
 	}
 };
 
 string Roster::castDegreeProgramToString(DegreeProgram degreeEnum) {
-	if (degreeEnum == SECURITY) {
+	if (degreeEnum == DegreeProgram::SECURITY) {
 		return "Security";
 	}
-	else if (degreeEnum == NETWORK) {
+	else if (degreeEnum == DegreeProgram::NETWORK) {
 		return "Network";
 	}
-	else if (degreeEnum == SOFTWARE) {
+	else if (degreeEnum == DegreeProgram::SOFTWARE) {
 		return "Software";
 	}
 }

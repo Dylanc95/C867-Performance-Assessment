@@ -14,20 +14,26 @@ int main() {
 	classRoster->parse();
 
 	classRoster->printAll();
+	cout << endl;
 
 	classRoster->printInvalidEmails();
+	cout << endl;
 
 	for (int i = 0; i < 5; ++i) {
 		classRoster->AverageDaysInProgram(classRoster->classRosterArray[i]->getStudentID());
 	};
+	cout << endl;
 
 	classRoster->printByDegreeProgram(DegreeProgram::SOFTWARE);
+	cout << endl;
 
 	classRoster->remove("A3");
 
 	classRoster->printAll();
+	cout << endl;
 
 	classRoster->remove("A3");
+	cout << endl;
 
 	classRoster->~Roster();
 

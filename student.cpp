@@ -2,6 +2,8 @@
 #include <string>
 
 #include "student.h"
+#include "roster.h"
+#include "degree.h"
 
 //D1-Create student class
 
@@ -78,12 +80,12 @@ DegreeProgram Student::getDegreeProgram() {
 }
 
 //D2e print function
-void student::print() {
+void Student::print() {
 	cout <<
 		"Student ID: " << studentID <<
 		"\tFirst Name: " << firstName <<
 		"\tLast Name: " << lastName <<
-		"\tAge: " << studentAge <<
-		"\tDays in Course: " << numDaysInProgramArray[0] << ", " << numDaysInProgramArray[1] << ", " << numDaysInProgramArray[2] <<
+		"\tAge: " << age <<
+		"\tDays in Course: " << daysPerCourseArray[0] << ", " << daysPerCourseArray[1] << ", " << daysPerCourseArray[2] <<
 		"\tDegree Program: " << Roster::castDegreeProgramToString(degreeProgram) << endl;
 }
