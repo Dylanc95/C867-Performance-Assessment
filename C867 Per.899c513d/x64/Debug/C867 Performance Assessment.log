@@ -1,0 +1,7 @@
+﻿  main.cpp
+  roster.cpp
+C:\Code\School projects\C867 Performance Assessment\roster.cpp(110,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Code\School projects\C867 Performance Assessment\roster.cpp(111,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  student.cpp
+  Generating Code...
+  C867 Performance Assessment.vcxproj -> C:\Code\School projects\C867 Performance Assessment\x64\Debug\C867 Performance Assessment.exe
