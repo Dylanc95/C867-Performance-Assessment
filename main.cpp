@@ -9,16 +9,17 @@ int main() {
 	cout << "Student ID: 012155657" << endl;
 	cout << "Name: Dylan Childers" << endl;
 
-	Roster* classRoster = new Roster();
+	Roster* classRoster = new Roster(5); //Create class roster, add each student
+
+	classRoster->parse();
 
 	classRoster->printAll();
 
 	classRoster->printInvalidEmails();
 
 	for (int i = 0; i < 5; ++i) {
-		student stud = classRoster->findStudent(i);
-		classRoster->AverageDaysInProgram(stud.GetStudentID());
-	}
+		classRoster->AverageDaysInProgram(classRoster->classRosterArray[i]->GetStudentID());
+	};
 
 	classRoster->printByDegreeProgram(DegreeProgram::SOFTWARE);
 

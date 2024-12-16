@@ -1,104 +1,92 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <sstream>
+#include <map>
+#include "student.h"
+#include "degree.h"
 #include "roster.h"
 using namespace std;
 
 //E1 Create roster class
-Roster::Roster() {
-	const string studentDataTable[] = {
-		"A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
-		"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
-		"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
-		"A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
-		"A5,Dylan,Childers,dylanc95@gmail.com,29,10,30,15,SOFTWARE"//Section A
+Roster::Roster(int rosterSize) {
+	Roster::rosterSize = rosterSize;
+
+	for (int i = 0; i < rosterSize; i++) {
+		classRosterArray[i] = nullptr;
 	};
-
-	classRosterArr = new student[5];
-
-	for (int i = 0; i < 5; i++) {
-		size_t obj1 = studentDataTable[i].find(",");
-		string studentID = studentDataTable[i].substr(0, obj1);
-
-		size_t obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		string firstName = studentDataTable[i].substr(obj2, obj1 - obj2);
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		string lastName = studentDataTable[i].substr(obj2, obj1 - obj2);
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		string emailAddress = studentDataTable[i].substr(obj2, obj1 - obj2);
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		int studentAge = stoi(studentDataTable[i].substr(obj2, obj1 - obj2));
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		int numDaysInProgram1 = stoi(studentDataTable[i].substr(obj2, obj1 - obj2));
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		int numDaysInProgram2 = stoi(studentDataTable[i].substr(obj2, obj1 - obj2));
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find(",", obj2);
-		int numDaysInProgram3 = stoi(studentDataTable[i].substr(obj2, obj1 - obj2));
-
-		obj2 = obj1 + 1;
-		obj1 = studentDataTable[i].find("\0", obj2);
-		string type = studentDataTable[i].substr(obj2, obj1 - obj2);
-		DegreeProgram dPr = DegreeProgram::SOFTWARE;
-		if (type == "NETWORK") {
-			dPr = DegreeProgram::NETWORK;
-		}
-		else if (type == "SECURITY") {
-			dPr = DegreeProgram::SECURITY;
-		}
-
-		add(studentID, firstName, lastName, emailAddress, studentAge, numDaysInProgram1, numDaysInProgram2, numDaysInProgram3, dPr);
-	}
-
-	this->lastInd = 0;
-
 };
 
 Roster::~Roster() {
-	cout << endl;
-	cout << "Roster destructor called" << endl;
-	//delete[] classRosterArr
-}
+	for (int i = 0; i < rosterSize; i++) {
+		delete classRosterArray[i];
+		classRosterArray[i] = nullptr;
+	};
+};
 
-void Roster::add(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int numDaysInProgram1, int numDaysInProgram2, int numDaysInProgram3, DegreeProgram type) {
-	student *stud = new student(studentID, firstName, lastName, emailAddress, studentAge, numDaysInProgram1, numDaysInProgram2, numDaysInProgram3, type);
-	classRosterArr[lastInd++] = *stud;
+void Roster::parse() {
+	for (int s = 0; s < rosterSize; s++) {
+		classRosterArray[s] = Roster::parseLine(studentData[s]);
+	};
+};
 
-	cout << endl << "Student added." << endl;
+student* Roster::parseLine(string dataLine) {
+	string delim = ",";
+	string sArray[9];
+	size_t lastDelim = 0;
+	int count = 0;
+
+	while ((dataLine.find(delim, lastDelim + delim.length())) != string::npos) {
+		sArray[count] = dataLine.substr(lastDelim, dataLine.find(delim, lastDelim) - lastDelim);
+		lastDelim = dataline.find(delim, lastDelim) + delim.length();
+		count++;
+	};
+
+	studentArray[8] = dataLine.substr(lastDelim);
+
+	return new Student(
+		studentArray[0], //studentID
+		studentArray[1], //firstName
+		studentArray[2], //lastName
+		studentArray[3], //email
+		stoi(studentArray[4]), //age
+		stoi(studentArray[5]), //daysInCourse1
+		stoi(studentArray[6]), //daysInCourse2
+		stoi(studentArray[7]), //daysInCourse3
+		castToDegreeProgram(studentArray[8]) //degree program
+	);
+};
+
+void Roster::add(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int numDaysInProgram1, int numDaysInProgram2, int numDaysInProgram3, DegreeProgram degreeProgram) {
+	classRosterArray[rosterSize] = new Student(studentID, firstName, lastName, emailAddress, studentAge, numDaysInProgram1, numDaysInProgram2, numDaysInProgram3, degreeProgram);
+
+	cout << "Student added" << endl;
 }
 
 void Roster::remove(string studentID) {
-	cout << endl;
-	for (int i = 0; i < 5; ++i) {
-		if (classRosterArr[i].GetStudentID() == studentID) {
-			cout << "Deleting: " << classRosterArr[i].GetStudentID() << endl;
-			classRosterArr[i].SetStudentID("Invalid");
-		}
-		else {
-			cout << "Error: Student not found" << endl;
-		}
-	}
+	bool wasStudentRemoved = false;
+	
+	for (int i = 0; i < rosterSize; i++) {
+		if (classRosterArray[i] == nullptr) {
+			continue;
+		};
+		else if (classRosterArray[i]->GetStudentID() == studentID) {
+			classRosterArray[i] = nullptr;
+			wasStudentRemoved = true;
+		};
+	};
+
+	if (wasStudentRemoved) {
+		cout << "Student was removed." << endl;
+	};
+	else {
+		cout << "Student ID not found." << endl;
+	};
 }
 
 void Roster::printAll() {
 	cout << endl;
-	for (int i = 0; i < 5; ++i) {
-		if (classRosterArr[i].GetStudentID() != "Invalid") {
-			cout << " ";
-			classRosterArr[i].PrintAll();
+	for (int s = 0; s < rosterSize; s++) {
+		if (classRosterArray[s] != nullptr) {
+			classRosterArray[s].PrintAll();
 		}
 	}
 }
@@ -119,30 +107,54 @@ void Roster::printInvalidEmails() {
 }
 
 void Roster::AverageDaysInProgram(string studentID) {
-	cout << endl;
-	for (int i = 0; i < 5; ++i) {
-		if (classRosterArr[i].GetStudentID() == studentID) {
-			int* tDays = classRosterArr[i].GetNumDays();
-			int avgDays = 0;
-			for (int j = 0; j < 3; ++j) {
-				avgDays += tDays[j];
+	for (int i = 0; i < rosterSize; i++) {
+		if (classRosterArray[i] == nullptr) {
+			continue;
+		}
+		else if (classRosterArray[i]->GetStudentID() == studentID) {
+			int* courseArray = classRosterArray[i]->GetNumDaysArray();
+			int totalDays = 0;
+			int arrayLength = 3;
+
+			for (int i = 0; i < arrayLength; i++) {
+				totalDays = totalDays + courseArray[i];
 			}
-			cout << "\tAverage number of days: " << avgDays / 3 << endl;
+
+			cout << "Average days per course: " << totalDays / arrayLength << endl;
 		}
 	}
 }
 
 void Roster::printByDegreeProgram(DegreeProgram degree) {
-	int numMatch = 0;
-	for (int i = 0; i < 5; ++i) {
-		if (classRosterArr[i].GetDegreeProgram() == degree) {
-			++numMatch; 
-			cout << numMatch << " ";
-			classRosterArr[i].PrintAll();
+	for (int i = 0; i < rosterSize; i++) {
+		if (classRosterArray[i] != nullptr) {
+			if (classRosterArray[i]->GetDegreeProgram() == degreeProgram) {
+				classRosterArray[i]->PrintAll();
+			}
 		}
 	}
 }
 
-student Roster::findStudent(int index) {
-	return classRosterArr[index];
+DegreeProgram Roster::castToDegreeProgram(string degreeString) {
+	if (degreeString == "SECURITY") {
+		return SECURITY;
+	}
+	else if (degreeString == "NETWORK") {
+		return NETWORK;
+	}
+	else if (degreeString == "SOFTWARE") {
+		return SOFTWARE;
+	}
+};
+
+string Roster::castDegreeProgramToString(DegreeProgram degreeEnum) {
+	if (degreeEnum == SECURITY) {
+		return "Security";
+	}
+	else if (degreeEnum == NETWORK) {
+		return "Network";
+	}
+	else if (degreeEnum == SOFTWARE) {
+		return "Software";
+	}
 }

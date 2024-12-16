@@ -8,21 +8,55 @@ using namespace std;
 //Create a roster class
 
 class Roster {
-	private:
-		int mSize;
-		int lastInd;
-		student *classRosterArr;
 	public:
-		Roster();
-		//E3 functions
-		void add(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int numDaysInProgram1, int numDaysInProgram2, int numDaysInProgram3, DegreeProgram type);
-		void remove(string studentID);
-		void printAll();
-		void AverageDaysInProgram(string studentID);
-		void printInvalidEmails();
-		void printByDegreeProgram(DegreeProgram degree);
-		student findStudent(int index);
+		//Constructor
+		Roster(int rosterSize);
+		
+		//Destructor
 		~Roster();
+
+		//E3 functions
+		//Parse data
+		void parse();
+
+		//Parses a student data line and returns object
+		student* parseLine(string dataLine);
+
+		//Adds to classRosterArr
+		void add(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int numDaysInProgram1, int numDaysInProgram2, int numDaysInProgram3, DegreeProgram degreeProgram);
+
+		//Removes from classRosterArr
+		void remove(string studentID);
+
+		//Prints all students
+		void printAll();
+
+		//Calculates and prints average number of days for each student in their course array
+		void AverageDaysInProgram(string studentID);
+
+		//Prints all invalid emails
+		void printInvalidEmails();
+
+		//Prints out students based on degree program
+		void printByDegreeProgram(DegreeProgram degree);
+
+		//Cast enum DegreeProgram to string 
+		static string castDegreeProgramToString(DegreeProgram degreeEnum);
+		static DegreeProgram castToDegreeProgram(string degreeString);
+
+		//Create an array of pointers
+		student* classRosterArray[5];
+
+		int rosterSize;
+
+		//Modify the table to include personal information
+		const string studentDataTable[] = {
+		"A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
+		"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
+		"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
+		"A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
+		"A5,Dylan,Childers,dylanc95@gmail.com,29,10,30,15,SOFTWARE"
+		};
 };
 
 #endif

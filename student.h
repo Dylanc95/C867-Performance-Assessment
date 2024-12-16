@@ -13,28 +13,28 @@ class student {
 		string lastName;
 		string emailAddress;
 		int studentAge;
-		int *numDaysInProgram;
+		int numDaysInProgramArray[3];
 		DegreeProgram degreeProgram;
 	public:
+		//D2d: constructor w/ input parameters
+		student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram type);
 		//D2a-Accessors for each variable from part D1
-		void	SetStudentID(string stuID);
-		void	SetFirstName(string fName);
-		void	SetLastName(string lName);
-		void	SetEmailAddress(string email);
-		void	SetAge(int age);
-		void	SetNumDays(int *numDaysInProgram);
+		void	SetStudentID(string studentID);
+		void	SetFirstName(string firstName);
+		void	SetLastName(string lastName);
+		void	SetEmailAddress(string emailAddress);
+		void	SetAge(int studentAge);
+		void	SetNumDaysArray(int days1, int days2, int days3);
+		void	SetDegreeProgram(DegreeProgram degreeProgram);
 		//D2b-Mutators for each variable from part D1
 		string	GetStudentID() const;
 		string	GetFirstName() const;
 		string	GetLastName() const;
 		string	GetEmailAddress() const;
 		int		GetAge() const;
-		int		*GetNumDays() const;
+		int*	GetNumDaysArray() const;
 		DegreeProgram	GetDegreeProgram() const;
 		void	PrintAll() const; //D2e print student data
-		student(); 
-		student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram type);
-		~student(); 
 };
 
 #endif

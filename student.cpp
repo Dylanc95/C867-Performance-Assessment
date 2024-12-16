@@ -4,58 +4,54 @@
 #include "student.h"
 
 //D1-Create student class
-student::student() {
-	studentID = "";
-	firstName = "";
-	lastName = "";
-	emailAddress = "";
-	studentAge = 0;
-	this->numDaysInProgram = new int[3];
-}
 
-student::student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram type) {
-	this->studentID = studentID;
-	this->firstName = firstName;
-	this->lastName = lastName;
-	this->emailAddress = emailAddress;
-	this->studentAge = studentAge;
-	this->numDaysInProgram = new int[3];
-	numDaysInProgram[0] = days1;
-	numDaysInProgram[1] = days2;
-	numDaysInProgram[2] = days3;
-}
+student::student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram degreeProgram) {
+	studentID = studentID;
+	firstName = firstName;
+	lastName = lastName;
+	emailAddress = emailAddress;
+	studentAge = studentAge;
+	numDaysInProgramArray[0] = days1;
+	numDaysInProgramArray[1] = days2;
+	numDaysInProgramArray[2] = days3;
+	degreeProgram = degreeProgram;
+};
 
 //Student destructor
 student::~student() {
-    cout << "Student destructor called" << endl;
-}
+	cout << "Student destructor called" << endl;
+};
 
 //D2b-mutators
 void student::SetStudentID(string studentID) {
 	this->studentID = studentID;
-}
+};
 
 void student::SetFirstName(string firstName) {
 	this->firstName = firstName;
-}
+};
 
 void student::SetLastName(string lastName) {
 	this->lastName = lastName;
-}
+};
 
 void student::SetEmailAddress(string emailAddress) {
 	this->emailAddress = emailAddress;
-}
+};
 
 void student::SetAge(int studentAge) {
 	this->studentAge = studentAge;
-}
+};
 
-void student::SetNumDays(int* days) {
-	numDaysInProgram[0] = days[0];
-	numDaysInProgram[1] = days[1];
-	numDaysInProgram[2] = days[2];
-}
+void student::SetNumDaysArray(int days1, int days2, int days3) {
+	numDaysInProgramArray[0] = days1;
+	numDaysInProgramArray[1] = days2;
+	numDaysInProgramArray[2] = days3;
+};
+
+void student::SetDegreeProgram(DegreeProgram degreeProgram) {
+
+};
 
 //D2a-accessors
 string student::GetStudentID() const {
@@ -78,8 +74,8 @@ int student::GetAge() const {
 	return studentAge;
 }
 
-int *student::GetNumDays() const {
-	return numDaysInProgram; 
+int *student::GetNumDaysArray() const {
+	return numDaysInProgramArray; 
 }
 
 DegreeProgram student::GetDegreeProgram() const {
@@ -88,18 +84,11 @@ DegreeProgram student::GetDegreeProgram() const {
 
 //D2e print function
 void student::PrintAll() const {
-	int* tDays = GetNumDays();
-	string degPr = "Software";
-	if (GetDegreeProgram() == DegreeProgram::NETWORK) {
-		degPr = "Network";
-	}
-	if (GetDegreeProgram() == DegreeProgram::SECURITY) {
-		degPr = "Security";
-	}
-	cout << GetStudentID();
-	cout << "\tFirst Name: " << GetFirstName();
-	cout << "\tLast Name: " << GetLastName();
-	cout << "\tAge: " << GetAge();
-	cout << "\tDays in course: " << "{" << tDays[0] << ", " << tDays[1] << ", " << tDays[2] << "}";
-	cout << "\tDegree Program: " << degPr << "." << endl;
+	cout <<
+		"Student ID: " << studentID <<
+		"\tFirst Name: " << firstName <<
+		"\tLast Name: " << lastName <<
+		"\tAge: " << studentAge <<
+		"\tDays in Course: " << numDaysInProgramArray[0] << ", " << numDaysInProgramArray[1] << ", " << numDaysInProgramArray[2] <<
+		"\tDegree Program: " << Roster::castDegreeProgramToString(degreeProgram) << endl;
 }
