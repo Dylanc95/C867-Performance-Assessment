@@ -25,6 +25,11 @@ student::student(string studentID, string firstName, string lastName, string ema
 	numDaysInProgram[2] = days3;
 }
 
+//Student destructor
+student::~student() {
+    cout << "Student destructor called" << endl;
+}
+
 //D2b-mutators
 void student::SetStudentID(string studentID) {
 	this->studentID = studentID;

@@ -34,9 +34,7 @@ class student {
 		void	PrintAll() const; //D2e print student data
 		student(); 
 		student(string studentID, string firstName, string lastName, string emailAddress, int studentAge, int days1, int days2, int days3, DegreeProgram type);
-		~student() {
-			cout << "Student destructor activated" << endl;
-		}
+		~student(); 
 };
 
 #endif
